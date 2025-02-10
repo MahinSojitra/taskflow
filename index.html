@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Flow | Manage Your Daily Tasks</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-light navbar-custom border border-1"
+    >
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="#">Task Flow</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="mt-3 mt-lg-0 ms-lg-auto">
+            <form class="d-flex">
+              <div class="input-group">
+                <input
+                  id="searchTasks"
+                  class="form-control border border-2 focus-ring-success"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  data-bs-html="true"
+                  data-bs-title="<div class='text-center py-0 px-2'> <span class='fw-medium'>Search</span><br/><span class='badge text-bg-dark fw-medium my-1 p-1 rounded-1'>CTRL</span> <span class='badge text-bg-dark fw-medium my-1 p-1 rounded-1 fw-bold'>K</span></div>"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section>
+      <div class="container mt-3">
+        <div class="card p-2 border-0" style="background-color: #f5f2e3">
+          <div class="card-body">
+            <h5 class="card-title">Welcome to Task Flow</h5>
+            <p class="card-text text-muted">
+              This is a simple task management app to manage your daily tasks.
+              You can create, update, delete and filter tasks based on their
+              <code>dates</code>, <code>status</code>, <code>#tags</code> and
+              more.
+            </p>
+            <button
+              class="btn btn-dark fw-bold btn-sm"
+              onclick="openTaskModal()"
+            >
+              Create Task
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <hr />
+    </div>
+
+    <section>
+      <div class="container mt-4">
+        <div class="row" id="taskContainer"></div>
+      </div>
+    </section>
+
+    <section>
+      <button
+        id="toggleFilterBtn"
+        class="btn btn-light position-fixed m-3 end-0 rounded-circle shadow border border-3 filter-btn"
+        type="button"
+        data-bs-toggle="offcanvas"
+        title="Filter Tasks"
+        data-bs-target="#filterDrawer"
+        aria-controls="filterDrawer"
+        style="bottom: 60px"
+      >
+        <i class="bi bi-funnel fs-4"></i>
+      </button>
+
+      <button
+        id="toggleTagsBtn"
+        class="btn btn-light position-fixed bottom-0 end-0 m-3 rounded-circle shadow border border-3 tags-btn"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#tagsDrawer"
+        aria-controls="tagsDrawer"
+      >
+        <i class="bi bi-tags fs-4"></i>
+      </button>
+
+      <div
+        class="offcanvas offcanvas-end"
+        data-bs-scroll="true"
+        data-bs-backdrop="false"
+        tabindex="-1"
+        id="filterDrawer"
+        aria-labelledby="filterDrawerLabel"
+      >
+        <div class="offcanvas-header border-bottom">
+          <h5 class="offcanvas-title" id="filterDrawerLabel">Filter Tasks</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          <h6 class="fw-bold">
+            <i class="bi bi-calendar2-check fs-5"></i> Filter by Dates
+          </h6>
+
+          <label for="startDate" class="form-label">Start Date</label>
+          <input type="date" class="form-control" id="startDate" />
+          <div id="startDateError" class="invalid-feedback">
+            The start date must not be in the past.
+          </div>
+
+          <label for="endDate" class="form-label mt-2">End Date</label>
+          <input type="date" class="form-control" id="endDate" disabled />
+          <div id="endDateError" class="invalid-feedback">
+            The end date must be after the start date.
+          </div>
+
+          <hr class="border-2 border-success" />
+
+          <h6 class="fw-bold">
+            <i class="bi bi-pin-angle fs-5"></i> Filter by Status
+          </h6>
+          <div class="d-flex flex-wrap gap-2 mt-3">
+            <button
+              class="btn btn-sm rounded-pill btn-light filter-status border border-3 border-success"
+              data-status="active"
+            >
+              <i class="bi bi-check-circle"></i> Active
+            </button>
+            <button
+              class="btn btn-sm rounded-pill btn-light filter-status border border-3 border-success"
+              data-status="cancelled"
+            >
+              <i class="bi bi-x-circle"></i> Cancelled
+            </button>
+            <button
+              class="btn btn-sm rounded-pill btn-light filter-status border border-3 border-success"
+              data-status="pending"
+            >
+              <i class="bi bi-hourglass-split"></i> Pending
+            </button>
+            <button
+              class="btn btn-sm rounded-pill btn-light filter-status border border-3 border-success"
+              data-status="completed"
+            >
+              <i class="bi bi-check-square"></i> Completed
+            </button>
+          </div>
+        </div>
+        <div class="offcanvas-footer border-top p-3 text-end">
+          <button
+            id="clearFilters"
+            class="btn btn-sm btn-outline-danger border-2 fw-medium"
+          >
+            <i class="bi bi-x-circle"></i> Clear Filters
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="offcanvas offcanvas-end"
+        data-bs-scroll="true"
+        data-bs-backdrop="false"
+        tabindex="-1"
+        id="tagsDrawer"
+        aria-labelledby="tagsDrawerLabel"
+      >
+        <div class="offcanvas-header border-bottom">
+          <h5 class="offcanvas-title" id="tagsDrawerLabel">Tags</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          <div id="tagsContainer" class="d-flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+    </section>
+
+    <div
+      class="modal fade"
+      id="taskModal"
+      tabindex="-1"
+      aria-labelledby="taskModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="taskModalLabel">Create a New Task</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="taskForm" novalidate>
+              <input type="hidden" id="editTaskId" />
+
+              <div class="mb-3">
+                <label class="form-label"
+                  >Title <span class="text-danger fw-bold">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="taskTitle"
+                  placeholder="Enter title"
+                  required
+                  minlength="3"
+                  maxlength="50"
+                />
+                <div class="invalid-feedback">
+                  Title must be between 3 and 50 characters long.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label"
+                  >Description <span class="text-danger fw-bold">*</span></label
+                >
+                <textarea
+                  class="form-control"
+                  id="taskDescription"
+                  rows="3"
+                  placeholder="Enter description"
+                  minlength="10"
+                  maxlength="1000"
+                  required
+                ></textarea>
+                <div class="invalid-feedback">
+                  Description must be between 10 and 1000 characters long.
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label"
+                    >Due Date <span class="text-danger fw-bold">*</span></label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="taskDueDate"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please select a valid due date.
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Status</label>
+                  <select class="form-select" id="taskStatus">
+                    <option value="active">✅ Active</option>
+                    <option value="pending">⏳ Pending</option>
+                    <option value="completed">🎯 Completed</option>
+                    <option value="cancelled">❌ Cancelled</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mb-3 position-relative">
+                <label class="form-label">
+                  Tags <span class="text-danger fw-bold">*</span>
+                </label>
+                <div class="position-relative">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="tagInput"
+                    placeholder="Enter tags"
+                  />
+                  <div id="tagsHelpText" class="form-text">
+                    Tap on the added tags to remove them from selection.
+                  </div>
+                  <div id="tagSuggestions" class="list-group"></div>
+                </div>
+                <div class="invalid-feedback">
+                  At least one tag is required.
+                </div>
+              </div>
+
+              <div id="selectedTags" class="d-flex flex-wrap gap-1"></div>
+
+              <button type="submit" hidden></button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-danger border-2"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              class="btn btn-outline-success fw-bold border-2"
+              id="saveTaskBtn"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div
+      class="modal fade"
+      id="taskModal"
+      tabindex="-1"
+      aria-labelledby="taskModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="taskModalLabel">Create a New Task</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="taskForm" novalidate>
+              <div class="mb-3">
+                <label class="form-label"
+                  >Title <span class="text-danger fw-bold">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="taskTitle"
+                  placeholder="Enter title"
+                  required
+                  minlength="3"
+                  maxlength="50"
+                />
+                <div class="invalid-feedback">
+                  Title must be between 3 and 50 characters long.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label"
+                  >Description <span class="text-danger fw-bold">*</span></label
+                >
+                <textarea
+                  class="form-control"
+                  id="taskDescription"
+                  rows="3"
+                  placeholder="Enter description"
+                  minlength="10"
+                  maxlength="1000"
+                  required
+                ></textarea>
+                <div class="invalid-feedback">
+                  Description must be between 10 and 1000 characters long.
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label"
+                    >Due Date <span class="text-danger fw-bold">*</span></label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="taskDueDate"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please select a valid due date.
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Status</label>
+                  <select class="form-select" id="taskStatus">
+                    <option value="active">✅ Active</option>
+                    <option value="pending">⏳ Pending</option>
+                    <option value="completed">🎯 Completed</option>
+                    <option value="cancelled">❌ Cancelled</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mb-3 position-relative">
+                <label class="form-label">
+                  Tags <span class="text-danger fw-bold">*</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="tagInput"
+                  placeholder="Enter tags"
+                />
+                <div id="tagsHelpText" class="form-text">
+                  Tap on the added tags to remove them from selection.
+                </div>
+                <div
+                  class="list-group position-absolute w-100"
+                  id="tagSuggestions"
+                  style="z-index: 10"
+                ></div>
+                <div class="invalid-feedback">
+                  At least one tag is required.
+                </div>
+              </div>
+
+              <div id="selectedTags" class="d-flex flex-wrap gap-1"></div>
+
+              <button type="submit" hidden></button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-danger border-2"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              class="btn btn-outline-success fw-bold border-2"
+              id="saveTaskBtn"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- <div
+      class="modal fade"
+      id="editTaskModal"
+      tabindex="-1"
+      aria-labelledby="editTaskModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editTaskModalLabel">Edit Task</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="editTaskForm" novalidate>
+              <input type="hidden" id="editTaskId" />
+
+              <div class="mb-3">
+                <label class="form-label"
+                  >Title <span class="text-danger fw-bold">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editTaskTitle"
+                  required
+                  minlength="3"
+                  maxlength="50"
+                />
+                <div class="invalid-feedback">
+                  Title must be between 3 and 50 characters long.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label"
+                  >Description <span class="text-danger fw-bold">*</span></label
+                >
+                <textarea
+                  class="form-control"
+                  id="editTaskDescription"
+                  rows="3"
+                  required
+                  minlength="10"
+                  maxlength="1000"
+                ></textarea>
+                <div class="invalid-feedback">
+                  Description must be between 10 and 1000 characters long.
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label"
+                    >Due Date <span class="text-danger fw-bold">*</span></label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="editTaskDueDate"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please select a valid due date.
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Status</label>
+                  <select class="form-select" id="editTaskStatus">
+                    <option value="active">✅ Active</option>
+                    <option value="pending">⏳ Pending</option>
+                    <option value="completed">🎯 Completed</option>
+                    <option value="cancelled">❌ Cancelled</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" hidden></button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              class="btn btn-outline-success fw-bold"
+              id="saveEditTaskBtn"
+            >
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+      $(function () {
+        const tooltipTriggerList = document.querySelectorAll(
+          '[data-bs-toggle="tooltip"]'
+        );
+        const tooltipList = [...tooltipTriggerList].map(
+          (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+        );
+      });
+    </script>
+  </body>
+</html>
