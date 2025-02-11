@@ -92,6 +92,10 @@ $(document).ready(function () {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
   }
 
+  if (getStoredTasks().length === 0) {
+    $("#toggleFilterBtn, #toggleTagsBtn").prop("disabled", true);
+  }
+
   function generateRandomAlphabeticId(length = 10) {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     let result = "";
@@ -428,9 +432,9 @@ $(document).ready(function () {
 
     if (tasks.length === 0) {
       container.append(
-        `<div class="col-12 d-flex flex-column justify-content-center align-items-center">
+        `<div class="col-12 d-flex flex-column justify-content-center align-items-center" id="noTasksMessage">
             <h4 class="text-title-muted text-center mb-1">Wow, you're all caught up!</h4>
-            <p class="text-msg-muted text-center mb-0">Tap 'Create Task' to create new.</p>
+            <p class="text-msg-muted text-center mb-0">Tap 'Create' to create new.</p>
             </div>`
       );
       return;
@@ -534,6 +538,10 @@ $(document).ready(function () {
   }
 
   function searchTasks() {
+    if (getStoredTasks().length === 0) {
+      return;
+    }
+
     let query = $("#searchTasks").val().toLowerCase();
     let tasksVisible = false;
 
