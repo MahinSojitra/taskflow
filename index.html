@@ -298,9 +298,10 @@
                   minlength="3"
                   maxlength="50"
                 />
-                <div class="invalid-feedback">
+                <div class="invalid-feedback fw-medium">
                   Title must be between 3 and 50 characters long.
                 </div>
+                <div class="valid-feedback fw-medium">Looks good!</div>
               </div>
 
               <div class="mb-3">
@@ -316,9 +317,10 @@
                   maxlength="1000"
                   required
                 ></textarea>
-                <div class="invalid-feedback">
+                <div class="invalid-feedback fw-medium">
                   Description must be between 10 and 1000 characters long.
                 </div>
+                <div class="valid-feedback fw-medium">Looks good!</div>
               </div>
 
               <div class="row">
@@ -332,9 +334,10 @@
                     id="taskDueDate"
                     required
                   />
-                  <div class="invalid-feedback">
+                  <div class="invalid-feedback fw-medium">
                     Please select a valid due date.
                   </div>
+                  <div class="valid-feedback fw-medium">Looks good!</div>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label class="form-label">Status</label>
@@ -344,6 +347,10 @@
                     <option value="completed">🎯 Completed</option>
                     <option value="cancelled">❌ Cancelled</option>
                   </select>
+                  <div class="invalid-feedback fw-medium">
+                    Please select a status.
+                  </div>
+                  <div class="valid-feedback fw-medium">Looks good!</div>
                 </div>
               </div>
 
@@ -358,13 +365,14 @@
                     id="tagInput"
                     placeholder="Enter tags"
                   />
+                  <div class="invalid-feedback fw-medium">
+                    At least one tag is required.
+                  </div>
+                  <div class="valid-feedback fw-medium">Looks good!</div>
                   <div id="tagsHelpText" class="form-text">
                     Tap on the added tags to remove them from selection.
                   </div>
                   <div id="tagSuggestions" class="list-group"></div>
-                </div>
-                <div class="invalid-feedback">
-                  At least one tag is required.
                 </div>
               </div>
 
