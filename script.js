@@ -640,6 +640,7 @@ $(document).ready(function () {
 
       badge.on("click", function () {
         selectedTags = selectedTags.filter((t) => t !== tag);
+        validateTags();
         renderTags();
       });
 

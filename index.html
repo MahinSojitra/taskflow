@@ -21,7 +21,7 @@
       <div class="container">
         <a class="navbar-brand fw-bold" href="#">Task Flow</a>
         <button
-          class="navbar-toggler"
+          class="navbar-toggler border-2"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -270,9 +270,9 @@
       aria-labelledby="taskModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header border-bottom border-2 border-success">
             <h5 class="modal-title" id="taskModalLabel">Create a New Task</h5>
             <button
               type="button"
@@ -286,12 +286,12 @@
               <input type="hidden" id="editTaskId" />
 
               <div class="mb-3">
-                <label class="form-label"
+                <label class="form-label fw-medium"
                   >Title <span class="text-danger fw-bold">*</span></label
                 >
                 <input
                   type="text"
-                  class="form-control"
+                  class="form-control border-2 text-success"
                   id="taskTitle"
                   placeholder="Enter title"
                   required
@@ -305,11 +305,11 @@
               </div>
 
               <div class="mb-3">
-                <label class="form-label"
+                <label class="form-label fw-medium"
                   >Description <span class="text-danger fw-bold">*</span></label
                 >
                 <textarea
-                  class="form-control"
+                  class="form-control border-2"
                   id="taskDescription"
                   rows="3"
                   placeholder="Enter description"
@@ -325,12 +325,12 @@
 
               <div class="row">
                 <div class="col-md-6 mb-3">
-                  <label class="form-label"
+                  <label class="form-label fw-medium"
                     >Due Date <span class="text-danger fw-bold">*</span></label
                   >
                   <input
                     type="date"
-                    class="form-control"
+                    class="form-control border-2"
                     id="taskDueDate"
                     required
                   />
@@ -340,8 +340,8 @@
                   <div class="valid-feedback fw-medium">Looks good!</div>
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label class="form-label">Status</label>
-                  <select class="form-select" id="taskStatus">
+                  <label class="form-label fw-medium">Status</label>
+                  <select class="form-select border-2" id="taskStatus">
                     <option value="active">✅ Active</option>
                     <option value="pending">⏳ Pending</option>
                     <option value="completed">🎯 Completed</option>
@@ -355,15 +355,15 @@
               </div>
 
               <div class="mb-3 position-relative">
-                <label class="form-label">
+                <label class="form-label fw-medium">
                   Tags <span class="text-danger fw-bold">*</span>
                 </label>
                 <div class="position-relative">
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control border-2"
                     id="tagInput"
-                    placeholder="Enter tags"
+                    placeholder="Type to search tags..."
                   />
                   <div class="invalid-feedback fw-medium">
                     At least one tag is required.
@@ -381,7 +381,7 @@
               <button type="submit" hidden></button>
             </form>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer border-top border-2 border-success">
             <button
               type="button"
               class="btn btn-outline-danger border-2"
