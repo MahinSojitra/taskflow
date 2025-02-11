@@ -62,10 +62,29 @@
               more.
             </p>
             <button
-              class="btn btn-dark fw-bold btn-sm"
-              onclick="openTaskModal()"
+              class="animated-button"
+              onclick="setTimeout(openTaskModal, 700)"
             >
-              Create Task
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="arr-2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                ></path>
+              </svg>
+              <span class="text">Create</span>
+              <span class="circle"></span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="arr-1"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                ></path>
+              </svg>
             </button>
           </div>
         </div>
@@ -334,239 +353,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <div
-      class="modal fade"
-      id="taskModal"
-      tabindex="-1"
-      aria-labelledby="taskModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="taskModalLabel">Create a New Task</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form id="taskForm" novalidate>
-              <div class="mb-3">
-                <label class="form-label"
-                  >Title <span class="text-danger fw-bold">*</span></label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="taskTitle"
-                  placeholder="Enter title"
-                  required
-                  minlength="3"
-                  maxlength="50"
-                />
-                <div class="invalid-feedback">
-                  Title must be between 3 and 50 characters long.
-                </div>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label"
-                  >Description <span class="text-danger fw-bold">*</span></label
-                >
-                <textarea
-                  class="form-control"
-                  id="taskDescription"
-                  rows="3"
-                  placeholder="Enter description"
-                  minlength="10"
-                  maxlength="1000"
-                  required
-                ></textarea>
-                <div class="invalid-feedback">
-                  Description must be between 10 and 1000 characters long.
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label class="form-label"
-                    >Due Date <span class="text-danger fw-bold">*</span></label
-                  >
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="taskDueDate"
-                    required
-                  />
-                  <div class="invalid-feedback">
-                    Please select a valid due date.
-                  </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Status</label>
-                  <select class="form-select" id="taskStatus">
-                    <option value="active">✅ Active</option>
-                    <option value="pending">⏳ Pending</option>
-                    <option value="completed">🎯 Completed</option>
-                    <option value="cancelled">❌ Cancelled</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="mb-3 position-relative">
-                <label class="form-label">
-                  Tags <span class="text-danger fw-bold">*</span>
-                </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="tagInput"
-                  placeholder="Enter tags"
-                />
-                <div id="tagsHelpText" class="form-text">
-                  Tap on the added tags to remove them from selection.
-                </div>
-                <div
-                  class="list-group position-absolute w-100"
-                  id="tagSuggestions"
-                  style="z-index: 10"
-                ></div>
-                <div class="invalid-feedback">
-                  At least one tag is required.
-                </div>
-              </div>
-
-              <div id="selectedTags" class="d-flex flex-wrap gap-1"></div>
-
-              <button type="submit" hidden></button>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-outline-danger border-2"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button
-              class="btn btn-outline-success fw-bold border-2"
-              id="saveTaskBtn"
-            >
-              Save
-            </button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-    <!-- <div
-      class="modal fade"
-      id="editTaskModal"
-      tabindex="-1"
-      aria-labelledby="editTaskModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editTaskModalLabel">Edit Task</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form id="editTaskForm" novalidate>
-              <input type="hidden" id="editTaskId" />
-
-              <div class="mb-3">
-                <label class="form-label"
-                  >Title <span class="text-danger fw-bold">*</span></label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="editTaskTitle"
-                  required
-                  minlength="3"
-                  maxlength="50"
-                />
-                <div class="invalid-feedback">
-                  Title must be between 3 and 50 characters long.
-                </div>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label"
-                  >Description <span class="text-danger fw-bold">*</span></label
-                >
-                <textarea
-                  class="form-control"
-                  id="editTaskDescription"
-                  rows="3"
-                  required
-                  minlength="10"
-                  maxlength="1000"
-                ></textarea>
-                <div class="invalid-feedback">
-                  Description must be between 10 and 1000 characters long.
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label class="form-label"
-                    >Due Date <span class="text-danger fw-bold">*</span></label
-                  >
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="editTaskDueDate"
-                    required
-                  />
-                  <div class="invalid-feedback">
-                    Please select a valid due date.
-                  </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Status</label>
-                  <select class="form-select" id="editTaskStatus">
-                    <option value="active">✅ Active</option>
-                    <option value="pending">⏳ Pending</option>
-                    <option value="completed">🎯 Completed</option>
-                    <option value="cancelled">❌ Cancelled</option>
-                  </select>
-                </div>
-              </div>
-
-              <button type="submit" hidden></button>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-outline-danger"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button
-              class="btn btn-outline-success fw-bold"
-              id="saveEditTaskBtn"
-            >
-              Save Changes
-            </button>
-          </div>
-        </div>
-      </div>
-    </div> -->
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

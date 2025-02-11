@@ -32,7 +32,6 @@ $(document).ready(function () {
   const STORAGE_KEY = "tasks";
   let selectedFilterTags = [];
   $("#startDate").attr("min", new Date().toISOString().split("T")[0]);
-  $("#taskDueDate").attr("min", new Date().toISOString().split("T")[0]);
   $("#endDate").prop("disabled", true);
   let lastShownDate = localStorage.getItem("toastShownDate");
   let today = new Date().toDateString();
@@ -43,10 +42,6 @@ $(document).ready(function () {
 
   function saveTasks(tasks) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-  }
-
-  if (getStoredTasks().length === 0) {
-    $("#toggleFilterBtn, #toggleTagsBtn").addClass("disabled");
   }
 
   function generateRandomAlphabeticId(length = 10) {

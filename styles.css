@@ -55,8 +55,91 @@
   z-index: 1050;
 }
 
-.background-blur {
-  background-color: rgba(255, 255, 255, 0.8);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+.animated-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 20px;
+  border: 3px solid;
+  border-color: transparent;
+  font-size: 12px;
+  background-color: inherit;
+  border-radius: 50px;
+  font-weight: bold;
+  color: #1e1e1e;
+  box-shadow: 0 0 0 2px #1e1e1e;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button svg {
+  position: absolute;
+  width: 16px;
+  fill: #1e1e1e; /* Default arrow color */
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .arr-1 {
+  right: 8px;
+}
+
+.animated-button .arr-2 {
+  left: -20%;
+}
+
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background-color: #14a44d;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-6px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  color: white;
+  border-radius: 8px;
+}
+
+.animated-button:hover .arr-1,
+.animated-button:hover .arr-2 {
+  fill: white;
+}
+
+.animated-button:hover .arr-1 {
+  right: -20%;
+}
+
+.animated-button:hover .arr-2 {
+  left: 8px;
+}
+
+.animated-button:hover .text {
+  transform: translateX(6px);
+}
+
+.animated-button:active {
+  scale: 0.9;
+  box-shadow: 0 0 0 4px #14a44d;
+}
+
+.animated-button:hover .circle {
+  width: 100px;
+  height: 100px;
+  opacity: 1;
 }
