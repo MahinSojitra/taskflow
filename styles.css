@@ -146,3 +146,30 @@
   height: 100px;
   opacity: 1;
 }
+
+.toast,
+.toast-header {
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.floating-btn {
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.model,
+.modal-content,
+.form-control,
+.form-select,
+.form-select {
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.bg-lightgray {
+  background-color: lightgray !important;
+}

@@ -302,7 +302,9 @@ $(document).ready(function () {
     if (inputVal && suggestions.length) {
       suggestions.forEach((tag) => {
         $("<div>")
-          .addClass("list-group-item list-group-item-action tag-suggestion")
+          .addClass(
+            "list-group-item list-group-item-action tag-suggestion bg-lightgray text-dark border-success border-opacity-25"
+          )
           .text(tag)
           .on("click", function () {
             addTag(tag);
@@ -688,7 +690,7 @@ $(document).ready(function () {
     if (tasksDueSoon.length > 0) {
       let toastHtml = `
       <div class="toast align-items-center text-bg-light border-2 position-fixed bottom-0 start-0 p-1 rounded-3 shadow" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 9999; margin-left: 10px; margin-bottom: 10px;">
-      <div class="toast-header">
+      <div class="toast-header bg-transparent">
             <i class="bi bi-bell-fill me-1"></i><strong class="me-auto fs-6">Reminder</strong>
             <small>Due in 3 days</small>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>

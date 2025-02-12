@@ -156,7 +156,7 @@
     <section>
       <button
         id="toggleFilterBtn"
-        class="btn btn-light position-fixed m-3 end-0 rounded-circle shadow border border-3 filter-btn"
+        class="btn btn-light position-fixed m-3 end-0 rounded-circle shadow border border-3 filter-btn floating-btn"
         type="button"
         data-bs-toggle="offcanvas"
         title="Filter Tasks"
@@ -169,7 +169,7 @@
 
       <button
         id="toggleTagsBtn"
-        class="btn btn-light position-fixed bottom-0 end-0 m-3 rounded-circle shadow border border-3 tags-btn"
+        class="btn btn-light position-fixed bottom-0 end-0 m-3 rounded-circle shadow border border-3 tags-btn floating-btn"
         type="button"
         data-bs-toggle="offcanvas"
         data-bs-target="#tagsDrawer"
@@ -281,6 +281,7 @@
       class="modal fade"
       id="taskModal"
       tabindex="-1"
+      data-bs-backdrop="static"
       aria-labelledby="taskModalLabel"
       aria-hidden="true"
     >
@@ -356,10 +357,18 @@
                 <div class="col-md-6 mb-3">
                   <label class="form-label fw-medium">Status</label>
                   <select class="form-select border-2" id="taskStatus">
-                    <option value="active">✅ Active</option>
-                    <option value="pending">⏳ Pending</option>
-                    <option value="completed">🎯 Completed</option>
-                    <option value="cancelled">❌ Cancelled</option>
+                    <option class="bg-lightgray" value="active">
+                      ✅ Active
+                    </option>
+                    <option class="bg-lightgray" value="pending">
+                      ⏳ Pending
+                    </option>
+                    <option class="bg-lightgray" value="completed">
+                      🎯 Completed
+                    </option>
+                    <option class="bg-lightgray" value="cancelled">
+                      ❌ Cancelled
+                    </option>
                   </select>
                   <div class="invalid-feedback fw-medium">
                     Please select a status.
@@ -386,7 +395,7 @@
                   <div id="tagsHelpText" class="form-text">
                     Tap on the added tags to remove them from selection.
                   </div>
-                  <div id="tagSuggestions" class="list-group"></div>
+                  <div id="tagSuggestions" class="list-group border-0"></div>
                 </div>
               </div>
 
